@@ -1,0 +1,40 @@
+*{
+    background-color: rgb(143, 190, 192)
+}
+.header{
+    background-color: black;
+    height: 100px;
+
+}
+.nav-belt{
+    border: 2px solid white;
+    display: flex;
+    border-radius: 20px
+}
+.logo-ext{
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    padding-bottom: 40px;
+    
+}
+#nav-location-slot{
+    color: white;
+    font-size: 15px;
+    display: flex;
+    border: 2px soloid white;
+}
+.nav-left{
+    width: 33.33%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#Logo{
+    width: 50%;
+    padding: 10px;
+
+}
+#logoimgid{
+    padding-top: 10px;
+}

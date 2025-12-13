@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Web Dev Mastery Roadmap</title>
+    
+    <!-- PWA / Mobile App Meta Tags -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#4f46e5">
+    <link rel="apple-touch-icon" href="https://img.icons8.com/color/48/code.png">
+    <link rel="icon" type="image/png" href="https://img.icons8.com/color/48/code.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Google API Scripts -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://apis.google.com/js/api.js"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+
+        /* Transitions */
+        .week-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .week-details { transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out; max-height: 0; opacity: 0; overflow: hidden; }
+        .week-details.open { max-height: 1200px; opacity: 1; }
+        
+        /* Fade transition for Login Screen */
+        .fade-out { opacity: 0; pointer-events: none; transition: opacity 0.5s ease-out; }
+        
+        /* Checkbox Styles */
+        .custom-checkbox {
+            appearance: none;
+            background-color: #fff;
+            margin: 0;
+            font: inherit;
+            color: currentColor;
+            width: 1.3em;
+            height: 1.3em;
+            border: 2px solid #cbd5e1;
+            border-radius: 0.35em;
+            display: grid;
+            place-content: center;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .custom-checkbox::before {
+            content: "";
+            width: 0.75em;
+            height: 0.75em;
+            transform: scale(0);
+            transition: 120ms transform ease-in-out;
+            box-shadow: inset 1em 1em white;
+            transform-origin: center;
+            clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+        }
+        .custom-checkbox:checked {
+            background-color: #3b82f6;
+            border-color: #3b82f6;
+        }
+        .custom-checkbox:checked::before {
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 text-slate-800 min-h-screen pb-10 overflow-hidden relative">
+
+    <!-- LOGIN OVERLAY (Shows initially) -->
+    <div id="login-screen" class="fixed inset-0 z-[100] bg-gradient-to-br from-slate-900 to-indigo-900 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden relative">
+            <!-- Header Decorative -->
+            <div class="h-32 bg-gradient-to-r from-indigo-500 to-purple-600 relative flex items-center justify-center">
+                <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20"></div>
+                <div class="w-16 h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center text-indigo-600 transform translate-y-8">
+                    <i data-lucide="code-2" class="w-8 h-8"></i>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="pt-12 pb-8 px-8 text-center">
+                <h1 class="text-2xl font-extrabold text-slate-800 mb-2">Web Dev Mastery</h1>
+                <p class="text-slate-500 text-sm mb-8">Track your 52-week journey to becoming a full-stack developer. Sync your progress securely to the cloud.</p>
+
+                <!-- Login Button -->
+                <div class="space-y-4">
+                    <button onclick="handleAuthClick()" class="w-full group relative flex items-center justify-center gap-3 bg-white border border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-slate-700 font-bold py-3 px-4 rounded-xl transition-all duration-200 shadow-sm">
+                        <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5" alt="Google">
+                        <span>Continue with Google</span>
+                        <div class="absolute right-4 opacity-0 group-hover:opacity-100 transition-opacity text-slate-400">
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </div>
+                    </button>
+
+                    <div class="relative flex py-2 items-center">
+                        <div class="flex-grow border-t border-slate-200"></div>
+                        <span class="flex-shrink-0 mx-4 text-xs text-slate-400">OR</span>
+                        <div class="flex-grow border-t border-slate-200"></div>
+                    </div>
+
+                    <button onclick="enterGuestMode()" class="w-full text-slate-400 text-xs font-semibold hover:text-indigo-500 transition-colors">
+                        Continue as Guest (Offline)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="bg-slate-50 p-4 text-center border-t border-slate-100">
+                <p class="text-[10px] text-slate-400 flex items-center justify-center gap-1">
+                    <i data-lucide="shield-check" class="w-3 h-3"></i> Secure connection to your Google Drive
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN APP CONTENT (Hidden initially) -->
+    <div id="main-app" class="hidden h-full overflow-y-auto">
+        <!-- Navbar -->
+        <div class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-white/20 shadow-sm safe-top">
+            <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/20 text-white">
+                        <i data-lucide="code" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-extrabold text-lg tracking-tight text-slate-900 leading-none">Dev Mastery</h1>
+                        <span class="text-[10px] font-bold text-indigo-500 uppercase tracking-widest">Roadmap 2026</span>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2 bg-white/50 rounded-full px-3 py-1.5 border border-indigo-100/50 shadow-sm backdrop-blur-sm">
+                    <div id="sync-status-badge" class="w-2 h-2 rounded-full bg-slate-400"></div>
+                    <div class="text-xs text-slate-600 font-semibold font-mono" id="current-date-display"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="max-w-6xl mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- Left Sidebar -->
+            <div class="lg:col-span-4 space-y-6">
+                
+                <!-- Progress Card -->
+                <div class="bg-gradient-to-br from-violet-600 to-indigo-700 rounded-3xl p-6 shadow-xl shadow-indigo-200 text-white relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none"></div>
+                    
+                    <h2 class="text-lg font-bold mb-6 flex items-center gap-2 text-indigo-100">
+                        <i data-lucide="trophy" class="text-yellow-300 w-5 h-5"></i>
+                        Your Progress
+                    </h2>
+                    
+                    <div class="flex items-center gap-6 mb-6 relative z-10">
+                        <div class="relative w-24 h-24 flex items-center justify-center">
+                            <svg class="w-full h-full transform -rotate-90">
+                                <circle cx="48" cy="48" r="40" stroke="currentColor" stroke-width="8" fill="transparent" class="text-indigo-800/50" />
+                                <circle id="progress-ring" cx="48" cy="48" r="40" stroke="currentColor" stroke-width="8" fill="transparent" stroke-dasharray="251" stroke-dashoffset="251" class="text-white transition-all duration-1000 ease-out" stroke-linecap="round" />
+                            </svg>
+                            <div class="absolute flex flex-col items-center">
+                                <span id="progress-percent" class="text-2xl font-black text-white">0%</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-black text-white"><span id="progress-count">0</span><span class="text-indigo-200 text-lg font-medium">/52</span></div>
+                            <div class="text-xs text-indigo-200 font-medium mt-1">Weeks Done</div>
+                        </div>
+                    </div>
+
+                    <div class="p-3 bg-white/10 backdrop-blur-md rounded-xl border border-white/10 relative z-10">
+                        <div class="text-[10px] text-indigo-200 uppercase font-bold tracking-wider mb-1">Current Focus</div>
+                        <div id="current-phase" class="font-bold text-white text-md leading-tight">Front-End Foundations</div>
+                    </div>
+                </div>
+
+                <!-- Sync Info Small Card -->
+                <div class="bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-white/50 shadow-sm flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <div class="p-1.5 bg-blue-50 text-blue-600 rounded-lg">
+                            <i data-lucide="cloud" class="w-4 h-4"></i>
+                        </div>
+                        <div class="text-xs text-slate-500">
+                            <p class="font-bold text-slate-700">Google Drive</p>
+                            <p id="account-status-text">Not Connected</p>
+                        </div>
+                    </div>
+                    <button onclick="handleSignoutClick()" class="text-xs text-red-400 hover:text-red-600 font-medium px-2 py-1 rounded hover:bg-red-50 transition-colors">
+                        Logout
+                    </button>
+                </div>
+                
+                <button id="sim-btn" class="w-full text-xs py-2 rounded-lg font-bold text-slate-500 bg-slate-200/50 hover:bg-slate-200">
+                    Wait for 2026? (Simulate Date)
+                </button>
+            </div>
+
+            <!-- Right Side - Syllabus -->
+            <div class="lg:col-span-8">
+                <div id="loading" class="text-center py-20 text-slate-400 font-medium hidden">Loading data...</div>
+                <div id="syllabus-feed" class="space-y-4"></div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // ************************************************************************
+        // 👇👇👇 STEP 1: PASTE YOUR GOOGLE KEYS HERE 👇👇👇
+        // ************************************************************************
+        let CLIENT_ID = '1039567753036-3tsu1omc8p25k7mca1u7rs48qbh07bdu.apps.googleusercontent.com'; 
+        let API_KEY   = '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';     
+        // ************************************************************************
+
+        // --- Data ---
+        const SYLLABUS = [
+            { week: 1, phase: "Front-End", title: "HTML Foundations", topics: ["HTML structure", "Forms & Tables", "Semantic HTML"], deliverables: ["Personal Portfolio", "Profile Page"], icon: "layout" },
+            { week: 2, phase: "Front-End", title: "CSS Foundations", topics: ["Selectors", "Box Model", "Typography"], deliverables: ["Styled Portfolio", "Theme Sheet"], icon: "layout" },
+            { week: 3, phase: "Front-End", title: "Layout Mastery", topics: ["Flexbox", "Grid", "Responsive"], deliverables: ["Landing Page", "Nav Bar"], icon: "layout" },
+            { week: 4, phase: "Front-End", title: "Advanced CSS", topics: ["Animations", "Media Queries", "Variables"], deliverables: ["Animated UI", "Mobile View"], icon: "layout" },
+            { week: 5, phase: "Front-End", title: "JS Basics", topics: ["Variables", "Functions", "Arrays"], deliverables: ["Calc App", "Logic Script"], icon: "code" },
+            { week: 6, phase: "Front-End", title: "DOM Manipulation", topics: ["Events", "Selectors", "Dynamic UI"], deliverables: ["To-Do List", "Modal"], icon: "code" },
+            { week: 7, phase: "Front-End", title: "ES6+ Features", topics: ["Arrow Func", "Destructuring", "Async"], deliverables: ["Weather App", "Fetch Data"], icon: "code" },
+            { week: 8, phase: "Front-End", title: "JS Projects", topics: ["Local Storage", "Error Handling", "clean code"], deliverables: ["Notes App", "Validator"], icon: "code" },
+            { week: 9, phase: "React", title: "React Intro", topics: ["Components", "JSX", "Props"], deliverables: ["Blog UI", "Card Comp"], icon: "code" },
+            { week: 10, phase: "React", title: "Hooks & State", topics: ["useState", "useEffect", "Lists"], deliverables: ["Task Manager", "Search Bar"], icon: "code" },
+            { week: 11, phase: "React", title: "Routing", topics: ["React Router", "Navigation", "Params"], deliverables: ["Multi-page Site", "Nav Menu"], icon: "code" },
+            { week: 12, phase: "React", title: "Advanced React", topics: ["Context API", "Custom Hooks", "Optim"], deliverables: ["Dashboard", "Theme Switch"], icon: "code" },
+            { week: 13, phase: "Backend", title: "Node.js Intro", topics: ["Runtime", "Modules", "NPM"], deliverables: ["CLI Tool", "Server"], icon: "server" },
+            { week: 14, phase: "Backend", title: "Express.js", topics: ["Routing", "Middleware", "API"], deliverables: ["REST API", "Log System"], icon: "server" },
+            { week: 15, phase: "Backend", title: "MongoDB", topics: ["NoSQL", "Compass", "Atlas"], deliverables: ["DB Setup", "Collections"], icon: "server" },
+            { week: 16, phase: "Backend", title: "Mongoose", topics: ["Schemas", "Models", "Validation"], deliverables: ["CRUD App", "User Model"], icon: "server" },
+            { week: 17, phase: "Backend", title: "Auth", topics: ["JWT", "Hashing", "Cookies"], deliverables: ["Login System", "Protect Route"], icon: "server" },
+            { week: 18, phase: "Backend", title: "Adv API", topics: ["Pagination", "Uploads", "Email"], deliverables: ["E-com API", "File Uploader"], icon: "server" },
+            { week: 19, phase: "Backend", title: "SQL Basics", topics: ["Tables", "Relations", "Queries"], deliverables: ["SQL Schema", "Join Query"], icon: "server" },
+            { week: 20, phase: "Backend", title: "Django Intro", topics: ["Python", "MTV", "Admin"], deliverables: ["Blog Backend", "Admin Panel"], icon: "server" },
+            { week: 21, phase: "Backend", title: "DRF", topics: ["Serializers", "Views", "Auth"], deliverables: ["API Endpoints", "Token Auth"], icon: "server" },
+            { week: 22, phase: "Backend", title: "Security", topics: ["Sanitization", "Rate Limit", "Headers"], deliverables: ["Secure API", "Audit"], icon: "server" },
+            { week: 23, phase: "Backend", title: "Performance", topics: ["Caching", "Redis", "Indexing"], deliverables: ["Fast Search", "Cache Layer"], icon: "server" },
+            { week: 24, phase: "Backend", title: "Microservices", topics: ["Architecture", "Gateway", "Events"], deliverables: ["2 Services", "Msg Queue"], icon: "server" },
+            { week: 25, phase: "FullStack", title: "Integration I", topics: ["Connect FE/BE", "CORS", "Env"], deliverables: ["Connected App", "Live Data"], icon: "server" },
+            { week: 26, phase: "FullStack", title: "Integration II", topics: ["Deploy", "CI/CD", "Testing"], deliverables: ["Deployed App", "Pipeline"], icon: "server" },
+            { week: 27, phase: "Capstone", title: "Project Start", topics: ["Planning", "Design", "Setup"], deliverables: ["Wireframes", "Repo"], icon: "trophy" },
+            { week: 28, phase: "Capstone", title: "Core Features", topics: ["MVP", "Database", "API"], deliverables: ["Working MVP", "Core Func"], icon: "trophy" },
+            { week: 29, phase: "DevOps", title: "Linux/Shell", topics: ["Bash", "Permissions", "SSH"], deliverables: ["Scripts", "VPS Setup"], icon: "terminal" },
+            { week: 30, phase: "DevOps", title: "Git Mastery", topics: ["Rebase", "Hooks", "Flow"], deliverables: ["Clean History", "Auto-Check"], icon: "terminal" },
+            { week: 31, phase: "DevOps", title: "Docker", topics: ["Images", "Containers", "Compose"], deliverables: ["Dockerized App", "Compose File"], icon: "terminal" },
+            { week: 32, phase: "DevOps", title: "CI/CD", topics: ["GitHub Actions", "Tests", "Build"], deliverables: ["Auto Deploy", "Test Run"], icon: "terminal" },
+            { week: 33, phase: "DevOps", title: "Cloud", topics: ["AWS/Vercel", "S3", "EC2"], deliverables: ["Cloud Host", "Storage"], icon: "globe" },
+            { week: 34, phase: "DevOps", title: "Monitoring", topics: ["Logs", "Uptime", "Alerts"], deliverables: ["Status Page", "Log Stream"], icon: "globe" },
+            { week: 35, phase: "DevOps", title: "Infra I", topics: ["Terraform", "IaC", "State"], deliverables: ["Infra Code", "Provision"], icon: "globe" },
+            { week: 36, phase: "DevOps", title: "Infra II", topics: ["Security", "SSL", "Scaling"], deliverables: ["HTTPS", "Load Balancer"], icon: "globe" },
+            { week: 37, phase: "Pro", title: "Architecture", topics: ["Patterns", "Scale", "Design"], deliverables: ["System Design", "Diagrams"], icon: "cpu" },
+            { week: 38, phase: "Pro", title: "API Design", topics: ["GraphQL", "REST", "Docs"], deliverables: ["Swagger Doc", "GQL Schema"], icon: "cpu" },
+            { week: 39, phase: "Pro", title: "Caching", topics: ["Strategies", "CDN", "Edge"], deliverables: ["Global Cache", "Fast Load"], icon: "cpu" },
+            { week: 40, phase: "Pro", title: "Sharding", topics: ["Database", "Scale", "Partition"], deliverables: ["Sharded DB", "Plan"], icon: "cpu" },
+            { week: 41, phase: "Pro", title: "Queues", topics: ["Kafka", "RabbitMQ", "Async"], deliverables: ["Worker", "Event Bus"], icon: "cpu" },
+            { week: 42, phase: "Pro", title: "System Design", topics: ["Interview", "Cases", "Big Data"], deliverables: ["Mock Design", "Solution"], icon: "cpu" },
+            { week: 43, phase: "Pro", title: "Optimization", topics: ["Perf", "Bottlenecks", "Profile"], deliverables: ["Audit Report", "Fixes"], icon: "cpu" },
+            { week: 44, phase: "Pro", title: "Security", topics: ["OWASP", "Auth", "Encryption"], deliverables: ["Security Fix", "Review"], icon: "cpu" },
+            { week: 45, phase: "Career", title: "SaaS Build", topics: ["MVP", "Stripe", "Launch"], deliverables: ["Live SaaS", "Payment"], icon: "trophy" },
+            { week: 46, phase: "Career", title: "E-com Build", topics: ["Cart", "Orders", "Admin"], deliverables: ["Shop App", "Dashboard"], icon: "trophy" },
+            { week: 47, phase: "Career", title: "Real-time", topics: ["Socket", "Chat", "Notif"], deliverables: ["Chat App", "Live Feed"], icon: "trophy" },
+            { week: 48, phase: "Career", title: "Polish", topics: ["Testing", "UI/UX", "Refactor"], deliverables: ["Gold Master", "Release"], icon: "trophy" },
+            { week: 49, phase: "Career", title: "Portfolio", topics: ["Resume", "GitHub", "Brand"], deliverables: ["CV", "Readme"], icon: "star" },
+            { week: 50, phase: "Career", title: "Interview", topics: ["Mock", "DSA", "Behavior"], deliverables: ["Practice", "Answers"], icon: "star" },
+            { week: 51, phase: "Career", title: "DSA", topics: ["Algorithms", "Data Struct", "Leet"], deliverables: ["Solved Probs", "Notes"], icon: "star" },
+            { week: 52, phase: "Career", title: "Review", topics: ["Year Look", "Next Goals", "Apply"], deliverables: ["Job Apps", "Future Plan"], icon: "star" },
+        ];
+
+        // --- Global State ---
+        let state = {
+            completedWeeks: {},
+            completedTopics: {},
+            currentDate: new Date(),
+            isSimulated: false,
+            driveFileId: null,
+            isConfigured: false
+        };
+
+        const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"];
+        const SCOPES = 'https://www.googleapis.com/auth/drive.file';
+        const DATA_FILE_NAME = 'web_dev_mastery_save.json';
+
+        let tokenClient;
+        let saveDebounceTimer;
+
+        // --- Auth & Login Logic ---
+        
+        function enterGuestMode() {
+            document.getElementById('login-screen').classList.add('fade-out');
+            document.getElementById('main-app').classList.remove('hidden');
+            document.body.style.overflow = 'auto'; // Re-enable scrolling
+            updateSyncStatus('offline');
+            document.getElementById('account-status-text').innerText = "Guest Mode";
+            renderUI();
+        }
+
+        function unlockApp() {
+            const loginScreen = document.getElementById('login-screen');
+            const mainApp = document.getElementById('main-app');
+            
+            loginScreen.classList.add('fade-out');
+            setTimeout(() => {
+                loginScreen.classList.add('hidden');
+                mainApp.classList.remove('hidden');
+                document.body.style.overflow = 'auto';
+            }, 500);
+        }
+
+        function initGapiClient() {
+            if (!CLIENT_ID || CLIENT_ID.includes('PASTE_YOUR_CLIENT_ID') || !API_KEY || API_KEY.includes('PASTE_YOUR_API_KEY')) {
+                alert("Please add your CLIENT_ID and API_KEY in the source code (Line ~420)!");
+                return;
+            }
+
+            gapi.load('client', async () => {
+                await gapi.client.init({ apiKey: API_KEY, discoveryDocs: DISCOVERY_DOCS });
+                tokenClient = google.accounts.oauth2.initTokenClient({ client_id: CLIENT_ID, scope: SCOPES, callback: '' });
+                state.isConfigured = true;
+                console.log("GAPI Initialized");
+            });
+        }
+
+        function handleAuthClick() {
+            if (!state.isConfigured) {
+                initGapiClient();
+                // Wait briefly for init then try login
+                setTimeout(() => {
+                     if (!tokenClient) return; 
+                     triggerLogin();
+                }, 800);
+                return;
+            }
+            triggerLogin();
+        }
+
+        function triggerLogin() {
+            tokenClient.callback = async (resp) => {
+                if (resp.error) throw (resp);
+                updateSyncStatus('online');
+                await loadFromDrive();
+                unlockApp();
+                document.getElementById('account-status-text').innerText = "Connected";
+            };
+            gapi.client.getToken() === null ? tokenClient.requestAccessToken({prompt: 'consent'}) : tokenClient.requestAccessToken({prompt: ''});
+        }
+
+        function handleSignoutClick() {
+            const token = gapi.client.getToken();
+            if (token !== null) {
+                google.accounts.oauth2.revoke(token.access_token);
+                gapi.client.setToken('');
+                updateSyncStatus('offline');
+                
+                // Show login screen again
+                document.getElementById('login-screen').classList.remove('hidden');
+                document.getElementById('login-screen').classList.remove('fade-out');
+                document.getElementById('main-app').classList.add('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        async function loadFromDrive() {
+            updateSyncStatus('syncing');
+            try {
+                const response = await gapi.client.drive.files.list({ 'pageSize': 1, 'q': `name = '${DATA_FILE_NAME}' and trashed = false` });
+                const files = response.result.files;
+                if (files && files.length > 0) {
+                    state.driveFileId = files[0].id;
+                    const res = await gapi.client.drive.files.get({ fileId: files[0].id, alt: 'media' });
+                    const data = res.result;
+                    state.completedWeeks = data.completedWeeks || {};
+                    state.completedTopics = data.completedTopics || {};
+                }
+                updateSyncStatus('synced');
+                renderUI();
+            } catch (err) { updateSyncStatus('error'); console.error(err); }
+        }
+
+        async function saveToDrive() {
+            if (!gapi.client.getToken()) return;
+            updateSyncStatus('saving');
+            const content = JSON.stringify({ completedWeeks: state.completedWeeks, completedTopics: state.completedTopics, lastUpdated: new Date().toISOString() });
+            const metadata = { 'name': DATA_FILE_NAME, 'mimeType': 'application/json' };
+            try {
+                if (state.driveFileId) {
+                    await gapi.client.request({ path: '/upload/drive/v3/files/' + state.driveFileId, method: 'PATCH', params: { uploadType: 'media' }, body: content });
+                } else {
+                    const boundary = '-------314159265358979323846';
+                    const delimiter = "\r\n--" + boundary + "\r\n";
+                    const close_delim = "\r\n--" + boundary + "--";
+                    const body = delimiter + 'Content-Type: application/json\r\n\r\n' + JSON.stringify(metadata) + delimiter + 'Content-Type: application/json\r\n\r\n' + content + close_delim;
+                    const res = await gapi.client.request({ 'path': '/upload/drive/v3/files', 'method': 'POST', 'params': {'uploadType': 'multipart'}, 'headers': { 'Content-Type': 'multipart/related; boundary="' + boundary + '"' }, 'body': body });
+                    state.driveFileId = res.result.id;
+                }
+                updateSyncStatus('synced');
+            } catch (err) { updateSyncStatus('error'); console.error(err); }
+        }
+
+        function triggerAutoSave() {
+            if (saveDebounceTimer) clearTimeout(saveDebounceTimer);
+            updateSyncStatus('pending');
+            saveDebounceTimer = setTimeout(saveToDrive, 1500);
+        }
+
+        function updateSyncStatus(status) {
+            const dot = document.getElementById('sync-status-badge');
+            const map = {
+                'offline': 'bg-slate-400', 'online': 'bg-blue-500', 'syncing': 'bg-indigo-500 animate-pulse',
+                'saving': 'bg-amber-500 animate-pulse', 'synced': 'bg-emerald-500', 'error': 'bg-red-500'
+            };
+            dot.className = `w-2 h-2 rounded-full ${map[status] || 'bg-slate-400'}`;
+        }
+
+        const getWeekStatus = (weekNum) => {
+            const startDate = new Date('2026-01-01');
+            const weekStartDate = new Date(startDate);
+            weekStartDate.setDate(startDate.getDate() + (weekNum - 1) * 7);
+            const weekEndDate = new Date(weekStartDate);
+            weekEndDate.setDate(weekStartDate.getDate() + 14);
+            const isCompleted = state.completedWeeks[weekNum] === true;
+            if (state.currentDate < weekStartDate) return { status: 'locked', message: `Unlocks ${weekStartDate.toLocaleDateString()}` };
+            if (state.currentDate > weekEndDate && !isCompleted) return { status: 'overdue', message: 'Deadline passed' };
+            return { status: 'active', message: isCompleted ? 'Done' : 'Due' };
+        };
+
+        const renderUI = () => {
+            const container = document.getElementById('syllabus-feed');
+            container.innerHTML = '';
+            let completedCount = 0;
+            let activePhase = "Front-End";
+            let phaseFound = false;
+
+            SYLLABUS.forEach(week => {
+                const { status, message } = getWeekStatus(week.week);
+                const isCompleted = state.completedWeeks[week.week];
+                if (isCompleted) completedCount++;
+                if (!isCompleted && !phaseFound) { activePhase = week.phase; phaseFound = true; }
+
+                let cardClass = "week-card relative flex flex-col rounded-xl border border-gray-100 shadow-sm bg-white mb-3 overflow-hidden";
+                let iconClass = "bg-gray-100 text-gray-400";
+                
+                if (status === 'locked') cardClass += " opacity-60 grayscale bg-slate-50";
+                else if (isCompleted) { cardClass += " border-l-4 border-l-emerald-500 bg-emerald-50/30"; iconClass = "bg-emerald-100 text-emerald-600"; }
+                else if (status === 'overdue') { cardClass += " border-l-4 border-l-red-500 bg-red-50/30"; iconClass = "bg-red-100 text-red-500"; }
+                else { cardClass += " border-l-4 border-l-blue-500"; iconClass = "bg-blue-50 text-blue-600"; }
+
+                const topicsHTML = week.topics.map((topic, i) => {
+                    const done = state.completedTopics[`${week.week}-${i}`];
+                    return `<li class="flex items-start gap-3 text-sm text-gray-600 group"><div class="mt-0.5"><input type="checkbox" class="custom-checkbox" ${done ? 'checked' : ''} ${status === 'locked' ? 'disabled' : ''} onchange="toggleTopic('${week.week}', ${i}, this)"></div><span class="${done ? 'line-through text-gray-400' : ''} transition-colors">${topic}</span></li>`;
+                }).join('');
+                
+                const delivsHTML = week.deliverables.map(d => `<li class="flex items-start gap-2 text-xs text-gray-500"><span class="mt-1 w-1 h-1 rounded-full bg-indigo-400 flex-shrink-0"></span>${d}</li>`).join('');
+
+                container.innerHTML += `
+                <div class="${cardClass}" id="week-card-${week.week}">
+                    <div class="flex items-center p-4 gap-4 cursor-pointer" onclick="toggleExpand(${week.week})">
+                        <div class="p-2 rounded-lg shadow-sm ${iconClass}"><i data-lucide="${week.icon}" class="w-5 h-5"></i></div>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-0.5"><span class="text-[10px] font-bold px-2 py-0.5 rounded-full border bg-white border-gray-200 text-gray-500">W${week.week}</span><span class="text-xs text-gray-400">${message}</span></div>
+                            <h3 class="font-bold text-md text-slate-800">${week.title}</h3>
+                        </div>
+                        ${status !== 'locked' ? `<button class="w-8 h-8 rounded-full border flex items-center justify-center ${isCompleted ? 'bg-emerald-500 border-emerald-500 text-white' : 'bg-white'}" onclick="event.stopPropagation(); toggleWeek(${week.week})">${isCompleted ? '<i data-lucide="check" class="w-4 h-4"></i>' : ''}</button>` : '<i data-lucide="lock" class="w-4 h-4 text-gray-300"></i>'}
+                    </div>
+                    <div id="details-${week.week}" class="week-details border-t border-gray-100 bg-white/50"><div class="p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div><h4 class="text-[10px] font-bold text-gray-400 uppercase mb-2">Topics</h4><ul class="space-y-2">${topicsHTML}</ul></div>
+                        <div><h4 class="text-[10px] font-bold text-gray-400 uppercase mb-2">Build</h4><ul class="space-y-1">${delivsHTML}</ul></div>
+                    </div></div>
+                </div>`;
+            });
+
+            const percent = Math.round((completedCount / 52) * 100);
+            document.getElementById('progress-percent').innerText = `${percent}%`;
+            document.getElementById('progress-count').innerText = completedCount;
+            document.getElementById('current-phase').innerText = activePhase;
+            document.getElementById('progress-ring').style.strokeDashoffset = 251 - (251 * percent / 100);
+            lucide.createIcons();
+        };
+
+        window.toggleExpand = (id) => {
+            const el = document.getElementById(`details-${id}`);
+            el.classList.contains('open') ? el.classList.remove('open') : el.classList.add('open');
+        };
+        window.toggleWeek = (id) => {
+            state.completedWeeks[id] = !state.completedWeeks[id];
+            renderUI(); triggerAutoSave();
+        };
+        window.toggleTopic = (id, idx, cb) => {
+            state.completedTopics[`${id}-${idx}`] = cb.checked;
+            cb.parentElement.nextElementSibling.classList.toggle('line-through');
+            cb.parentElement.nextElementSibling.classList.toggle('text-gray-400');
+            triggerAutoSave();
+        };
+
+        const init = () => {
+            document.getElementById('current-date-display').innerText = state.currentDate.toLocaleDateString();
+            document.getElementById('loading').classList.add('hidden');
+            
+            // Auto-init GAPI if keys present
+            if (CLIENT_ID && !CLIENT_ID.includes('PASTE_YOUR_CLIENT_ID')) {
+                initGapiClient();
+            }
+            
+            renderUI();
+        };
+
+        document.getElementById('sim-btn').addEventListener('click', () => {
+            state.isSimulated = !state.isSimulated;
+            state.currentDate = state.isSimulated ? new Date('2026-03-15') : new Date();
+            document.getElementById('current-date-display').innerText = state.currentDate.toLocaleDateString();
+            renderUI();
+        });
+
+        init();
+    </script>
+</body>
+</html>

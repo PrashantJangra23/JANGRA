@@ -1,0 +1,42 @@
+/* *{
+
+}
+.container{
+    width: 1500px;
+    height: 650px;
+    background-color: #ffffff;
+    font-size: 12px;
+    display: none;
+} */
+.header{
+    width: 100%;
+}
+.head-main{
+    padding: 12px 28px 12px 28px
+}
+.head-left{
+    height: 43px;
+    align-items: center;
+    justify-content: center;
+
+}
+.logo{
+    height: 40px;
+    width: 160px;
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.searchbar{
+    display: flex;
+}
+.searchbtn{
+    width: 44px;
+    height: 40px;
+    border: none;
+    background-color: none;
+}
+.searchinput{
+    border: none;
+}

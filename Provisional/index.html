@@ -1,0 +1,284 @@
+<!doctype html public "-//w3c//dtd html 3.2//en">
+
+<html>
+
+<style type="text/css">
+table.sample {
+	border-width: 5px;
+	border-spacing: 1px;
+	border-style: dotted;
+	border-color: #faf0e6 ;
+	border-collapse: separate;
+	background-color: #faf0e6;
+}
+table.sample th {
+	border-width: 2px;
+	padding: 3px;
+	border-style: outset;
+	border-color: BLACK;
+	background-color: #9A0000;
+	/* -moz-border-radius :3 ; */
+}
+table.sample td {
+	border-width: 2px;
+	padding: 3px;
+	border-style: outset;
+	border-color: BLACK;
+	background-color: #faf0e6;
+	/* -moz-border-radius: 3; */
+}
+
+.nav-btn {
+	display: none;
+	float: left;
+	background: none;
+	border: none;
+	font-size: 24px;
+	cursor: pointer;
+}
+@media screen and (max-width: 768px) {
+	.nav-btn { display: block; }
+	table.sample { width: 95% !important; }
+}
+</style>
+
+<head>
+
+
+<!----------------Validate Field---------------------------------------------------------->
+<!-- <script type="text/javascript">
+
+function validate(f)
+ {
+ 	var defaultFocus=null;
+
+ 	for(var i=0,limit=f.elements.length; i < limit; ++i )
+	{
+        if(i==0 || i==1 || i==2 || i==3)
+        {
+           if( f.elements[i].value=="" )
+		{
+			f.elements[i].style.backgroundColor="#00FFFF";
+			if( defaultFocus == null )
+			{
+				defaultFocus=f.elements[i];
+			}
+		}
+		else
+		{
+			f.elements[i].style.backgroundColor="#ffffff";
+		}
+         }
+	 }
+
+
+	if( defaultFocus )
+	{
+		alert("Please Complete the Higlighted Field before submitting");
+		defaultFocus.focus();
+		return false;
+	}
+
+
+
+       var theForm=document.form1;
+       if (!/^\d{2}\-\d{2}\-\d{4}$/.test(theForm.d_o_b.value)) 
+        {
+          alert("Date field must be filled and in dd-mm-yyyy format");
+          return false;
+        }
+        var d1 = (theForm.d_o_b.value).split("-");
+        var d2 = new Date(d1[2], d1[1]-1, d1[0]);
+        if((d1[2]!=d2.getFullYear() || d1[1]!=d2.getMonth()+1 || d1[0]!=d2.getDate()))
+        {
+          alert("Invalid date, Please enter the date in dd-mm-yyyy format");
+          return false;
+       }
+
+
+
+//return true;
+ }
+</script> -->
+<!----------------------------------------->
+
+<meta name="GENERATOR" content="Arachnophilia 4.0">
+<meta name="FORMATTER" content="Arachnophilia 4.0">
+</head>
+<script src="data.js"></script>
+<body bgcolor="#3F3F3F" link="#FF00FF" vlink="#FFFFFF" alink="#00FF00" bgcolor="#3F3F3F">
+
+<table  align='center' border='0' width='100%' cellspacing='0' bgcolor="#FFCCCD">
+ <tr> <td  align='left' valign='top' width='50%'>
+<p align="center"> <b>
+<big><big><font color="BLUE">University Regular Courses Results</font><br></big></big>
+<big><font color="#FF0000">Guru Jambheshwar University of Science & Technology - Hisar (Haryana)</big>
+<big><font color="#FF00FF">Result</big>
+</font></b>
+</td> </tr>
+
+
+
+
+</table>
+
+
+<form name="<form onsubmit="event.preventDefault(); searchResult();">
+
+<input type=hidden  name=todo value=post>
+
+<table  class='sample' border='0' bgcolor='#F8E0E0' width='50%' cellspacing='0' cellpadding='0' align=center>
+
+<tr bgcolor='#f1f1f1'>
+     <th colspan=2>
+          <button class="nav-btn" onclick="alert('Menu')">&#9776;</button>
+          <font face="Alba Super" size='4' color='BLUE'>Welcome</font>
+     </th>
+</tr>
+<tr bgcolor='#f1f1f1'>
+     <tr><th colspan=2><font face="Calibri" size='4' color='#FFFFFF'>(Only for Pass/Re-Appear Candidates)</font></td></tr>
+</tr>
+
+<tr>
+     
+     <td>
+          <label>Enter Roll No.</label>
+          <input type="text" id="rollno" required="" name="rollno" style="width:100%">
+     </td>
+</tr>
+<tr>
+     <td>
+	 
+	 
+	 
+	 
+          
+		  
+		 <label>Select Session</label>
+          <select id="session" name="session" required="" style="width:100%">
+               <option value=""> --SELECT-- </option>
+                                   <option value="DEC2021">DEC2021</option>
+                                        <option value="DEC2022">DEC2022</option>
+                                        <option value="DEC2023">DEC2023</option>
+                                        <option value="DEC2024">DEC2024</option>
+                                        <option value="DEC2025">DEC2025</option>
+                                        <option value="JUN2020">JUN2020</option>
+                                        <option value="JUN2022">JUN2022</option>
+                                        <option value="JUN2023">JUN2023</option>
+                                        <option value="JUN2024">JUN2024</option>
+                                        <option value="JUN2025">JUN2025</option>
+                    
+          </select> 
+     </td>
+</tr>
+
+<tr>
+     <td>
+          <label>Select Semester</label>
+          <select id="sem" name="sem" required="" style="width:100%">
+               <option value=""> --SELECT-- </option>
+                                   <option value="2">2</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="4">4</option>
+                                        <option value="10">10</option>
+                                        <option value="3">3</option>
+                                        <option value="8">8</option>
+                                        <option value="1">1</option>
+                                        <option value="7">7</option>
+                                        <option value="9">9</option>
+                              </select>
+     </td>
+</tr>
+<tr>
+     <td>
+     <label >Select Exam Type</label>
+             <Select  name="examType" id="examType" required  style="width: 100%;">
+			 <option value=""> --- Select --- </option>
+				<option value="MAIN" > MAIN </option>
+				<option value="REAPPEAR" > REAPPEAR </option>
+			
+			 </Select>
+     </td>
+</tr>
+<tr>
+     <td colspan="2" style="text-align:center">
+          <input type="button" value="SEARCH" onclick="searchResult()">
+     </td>
+</tr>
+
+      
+
+</table>
+
+<center>
+<br><font face='Verdana' size='2' color='WHITE' >Note : Students must go through the re-evaluation  rules available on Univesrity website<br>
+while submitting the request for re-evaluation before submitting the application for re-evaluation
+</center> 
+
+
+
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+$(document).ready(function()
+		{
+		$("#DeptID").on('change',function()
+		{  
+		$('#CourseID').html('');
+			$.ajax({
+				type: "POST",
+					url: "getcourse.php",
+					data: { 'DeptID' : $("#DeptID").val() },
+					cache: false,
+		complete: function(){
+		},
+					success: function(html)
+					{
+						//console.log(html);
+						$option = "<option value='' >--- Select ---</option>";
+						$('#CourseID').append($option);
+						if(html.length>0){
+							for($i=0;$i<html.length;$i++){
+								//console.log(html[$i]);
+								
+								$option = "<option value='"+html[$i]['CourseID']+"'>"+html[$i]['CourseID']+" - "+html[$i]['CourseName']+"</option>";
+								$('#CourseID').append($option);
+							}
+						}
+		
+					}
+			  });
+
+			});
+          });
+               </script> -->
+               <script>
+    function searchResult() {
+        // 1. Get the values you typed
+        var r = document.getElementById('rollno').value;
+        var s = document.getElementById('session').value;
+        var sem = document.getElementById('sem').value;
+        var type = document.getElementById('examType').value;
+        
+        // 2. Search inside data.js
+        // We look for a student that matches ALL 4 things
+        var foundStudent = studentDatabase.find(student => 
+            student.rollno === r && 
+            student.session === s && 
+            student.sem === sem &&
+            student.examType === type
+        );
+
+        if (foundStudent) {
+            // 3. If found, save to memory and go to result card
+            localStorage.setItem('currentResult', JSON.stringify(foundStudent));
+            window.location.href = 'result.html';
+        } else {
+            // 4. If not found, show error
+            alert("Result not found!\n\nPlease check:\n- Roll No: " + r + "\n- Session: " + s);
+        }
+    }
+</script>
+</body>
+
+</html>

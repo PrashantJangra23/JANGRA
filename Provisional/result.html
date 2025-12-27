@@ -1,0 +1,172 @@
+<html><head>
+<title>Candidate DMC</title>
+<script language="javascript">
+function printpage()
+{
+window.print();
+}
+</script>
+<style>
+    table, th, td {
+      border-collapse: collapse;
+    }
+    .brdr {
+        border: 1px solid black;
+    }
+    .brdr tr {
+        border: 1px solid black;
+    }
+    .brdr td {
+        border: 1px solid black;
+    }
+    /* Simple spinner for loading */
+    #loading { display: none; }
+</style>
+</head>
+<body>
+
+    <input type="button" align="right" value="Print" onclick="printpage();">
+    
+<table style="text-align: center;width:100%">
+    <tbody><tr>
+        <td><h2>Guru Jambheshwar University of Science &amp; Technology - Hisar <br>
+(Haryana)</h2>
+        </td>
+    </tr>
+    <tr><td style="font-weight: bold;"><img src="logo.png" style="height: 50px;" alt="GJU Logo"></td></tr>
+    <tr><td style="font-weight: bold;">Result-cum-Semester Grade Point Card</td></tr>
+    <tr><td style="font-weight: bold;" id="courseName">B.Sc. B.Ed. (under ITEP)</td></tr>
+    <tr><td style="font-weight: bold;text-transform: capitalize;" id="examName">Second Semester Examination May, 2025</td></tr>
+    <tr><td style="font-weight: bold;">(For Pass Provisional/Re-appear Candidates only)</td></tr>
+</tbody></table>
+<br>
+
+<table class="brdr" style="width: 100%;">
+    <tbody><tr>
+        <td colspan="8" style="font-weight: bold;">Date of uploading of the certificate : 20-11-2025</td>
+    </tr>
+    <tr>
+        <td colspan="3">Regn.-cum-Roll No.</td>
+        <td colspan="5" id="dRoll"></td>
+    </tr>
+    <tr>
+        <td colspan="3">Name</td>
+        <td colspan="5" id="dName"></td>
+    </tr>
+    <tr>
+        <td colspan="3">Father's Name</td>
+        <td colspan="5" id="dFather"></td>
+    </tr>
+    <tr>
+        <td colspan="3">Mother's Name</td>
+        <td colspan="5" id="dMother"></td>
+    </tr>
+    <tr>
+        <td colspan="8" style="font-weight: bold; text-align:center">DETAIL OF MARKS </td>
+    </tr>
+    <tr style="font-weight: bold; text-align:center">
+        <td> Sl. No.</td>
+        <td> Subject with Paper Code</td>
+        <td> Max. Marks</td>
+        <td> Marks Obtained </td>
+       <td> Letter Grade </td>	   
+       <td> Grade Point </td>		
+       <td> Credits </td>
+       <td> Credit Point</td> 
+    </tr>
+
+    <tbody id="marksBody">
+    </tbody>
+    
+    <tr style="font-weight: normal; text-align:center">
+        <td> </td>
+        <td> Total Marks [if passed] </td>
+        <td id="gTotalMax"> 500</td>
+        <td id="gTotalObt"> 0</td>
+        <td></td>
+        <td></td>
+        <td></td> <td></td>
+    </tr>
+</tbody></table>
+<br>
+
+<table class="brdr" style="width: 100%;">
+    <tbody><tr>
+        <td colspan="6" style="font-weight: bold;text-align:center">SEMESTER RECORD</td>
+    </tr>
+    <tr>
+        <td colspan="3" style="font-weight: bold;text-align:center">Total Credits</td>
+        <td colspan="3" style="font-weight: bold;text-align:center">SGPA (10 Point Scale)</td>
+    </tr>
+    <tr>
+        <td colspan="3" style="font-weight: normal;text-align:center" id="tCredits"></td>
+        <td colspan="3" style="font-weight: normal;text-align:center" id="tSgpa"></td>
+    </tr>
+</tbody></table>
+<br>
+
+<table class="brdr" style="width: 100%;">
+    <tbody><tr>
+       <td>
+       Note : 1. This DMC is being issued only for re-evaluation purpose. A candidate
+        may apply for re-evaluation only for theory paper(s) within 15 days including the
+        date of uploading of this DMC on the University website with a fee of Rs. 600/-
+        per answer sheet alongwith prescribed re-evaluation form. The controller of
+        examinations, in exceptional cases, may on request permit with a late fee of Rs.
+        1100/- in case of a candidate who submits the re-evaluation form after stipulated
+        period but not later than 30 days including the date of the dispatch of
+        DMC/uploading on website.
+<br>
+        2. This is a Computer generated certificate. It does not require any signature.
+       </td>
+     </tr>
+</tbody></table>
+<br>
+
+<script>
+    // 1. Get Data
+    var data = JSON.parse(localStorage.getItem('currentResult'));
+
+    if(data) {
+        // 2. Fill Header
+        document.getElementById('courseName').innerText = data.courseName || "B.Sc. B.Ed. (under ITEP)";
+        document.getElementById('examName').innerText = data.examName || "Examination";
+
+        // 3. Fill Personal Details
+        document.getElementById('dRoll').innerText = data.rollno;
+        document.getElementById('dName').innerText = data.name;
+        document.getElementById('dFather').innerText = data.fatherName;
+        document.getElementById('dMother').innerText = data.motherName;
+
+        // 4. Fill Footer Totals
+        document.getElementById('gTotalMax').innerText = data.grandTotalMax;
+        document.getElementById('gTotalObt').innerText = data.grandTotalObt;
+        document.getElementById('tCredits').innerText = data.totalCredits;
+        document.getElementById('tSgpa').innerText = data.sgpa;
+
+        // 5. Build Marks Table
+        var tableBody = document.getElementById('marksBody');
+        tableBody.innerHTML = ""; // Clear
+        
+        data.marks.forEach(function(m) {
+            var row = `<tr style="font-weight: normal; text-align:center">
+            <td> ${m.sl}</td>
+            <td> ${m.code} <br> ${m.subject}</td>
+            <td> ${m.max}</td>
+            <td> ${m.obt} </td>
+            <td>${m.grade}</td>
+            <td>${m.pt}</td>          
+            <td> ${m.cred} </td>
+            <td> ${m.cp} </td>
+            </tr>`;
+            tableBody.innerHTML += row;
+        });
+
+    } else {
+        alert("No data found! Please open index.html and search first.");
+        // Optional: Redirect back to search
+        // window.location.href = 'index.html';
+    }
+</script>
+
+</body></html>

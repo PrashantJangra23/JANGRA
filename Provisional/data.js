@@ -290,7 +290,7 @@ const studentDatabase = [
         ]
     },
 
-    // 12. PRASHANT JANGRA (Roll No: ...044) - RE-APPEAR (Your requested data)
+    // 12. PRASHANT JANGRA (Roll No: ...044) - Pass (Your requested data)
     {
         rollno: "240292920044",
         name: "PRASHANT JANGRA",
@@ -304,9 +304,9 @@ const studentDatabase = [
         totalCredits: "0.0",
         sgpa: "R- 24MAT0201T",
         grandTotalMax: "500",
-        grandTotalObt: "0",
+        grandTotalObt: "312",
         marks: [
-            { sl: "1.", code: "24MAT0201T", subject: "Calculus", max: "70<br>30", obt: "6<br>27", grade: "F", pt: "0", cred: "4", cp: "0.00" },
+            { sl: "1.", code: "24MAT0201T", subject: "Calculus", max: "70<br>30", obt: "46<br>27", grade: "F", pt: "0", cred: "4", cp: "0.00" },
             { sl: "2.", code: "24PHY0201T", subject: "Heat and Thermodynamics", max: "50<br>20", obt: "20<br>18", grade: "B", pt: "6", cred: "3", cp: "18.00" },
             { sl: "3.", code: "24PHY0201P", subject: "Heat and Thermodynamics-Lab", max: "20<br>10", obt: "18<br>8", grade: "O", pt: "10", cred: "2", cp: "10.00" },
             { sl: "4.", code: "24MIN0221T", subject: "Discrete Structures", max: "70<br>30", obt: "28<br>23", grade: "B", pt: "6", cred: "4", cp: "24.00" },
@@ -1031,7 +1031,7 @@ const studentDatabase = [
         ]
     },
 
-    // 40. KIRAN (Roll No: ...046) - RE-APPEAR
+    // 40. KIRAN (Roll No: ...046) - Pass
     {
         rollno: "240292920046",
         name: "KIRAN",
@@ -1042,16 +1042,16 @@ const studentDatabase = [
         examType: "MAIN",
         courseName: "B.Sc. B.Ed. (under ITEP)",
         examName: "Second Semester Examination May, 2025",
-        totalCredits: "0.0",
-        sgpa: "R- 24MAT0201T",
+        totalCredits: "13.0",
+        sgpa: "7.0",
         grandTotalMax: "500",
-        grandTotalObt: "0",
+        grandTotalObt: "322",
         marks: [
-            { sl: "1.", code: "24MAT0201T", subject: "Calculus", max: "70<br>30", obt: "10<br>26", grade: "F", pt: "0", cred: "4", cp: "0.00" },
+            { sl: "1.", code: "24MAT0201T", subject: "Calculus", max: "70<br>30", obt: "41<br>26", grade: "F", pt: "0", cred: "4", cp: "0.00" },
             { sl: "2.", code: "24PHY0201T", subject: "Heat and Thermodynamics", max: "50<br>20", obt: "20<br>18", grade: "B", pt: "6", cred: "3", cp: "18.00" },
             { sl: "3.", code: "24PHY0201P", subject: "Heat and Thermodynamics-Lab", max: "20<br>10", obt: "18<br>8", grade: "O", pt: "10", cred: "2", cp: "10.00" }, 
             { sl: "4.", code: "24MIN0221T", subject: "Discrete Structures", max: "70<br>30", obt: "28<br>24", grade: "B", pt: "6", cred: "4", cp: "24.00" },
-            { sl: "5.", code: "24AEC0201T", subject: "Sanskrit -Sanskrit Bhasha", max: "70<br>30", obt: "41<br>27", grade: "A", pt: "8", cred: "4", cp: "32.00" },
+            { sl: "5.", code: "24AEC0201T", subject: "Sanskrit -Sanskrit Bhasha", max: "70<br>30", obt: "46<br>27", grade: "A", pt: "8", cred: "4", cp: "32.00" },
             { sl: "6.", code: "24VAC0225T", subject: "Understanding India(Indian Ethos and<br>Knowledge Systems)", max: "35<br>15", obt: "18<br>13", grade: "B+", pt: "7", cred: "2", cp: "14.00" },
             { sl: "7.", code: "24VAC0226T", subject: "Teacher and Society", max: "35<br>15", obt: "24<br>12", grade: "A", pt: "8", cred: "2", cp: "16.00" }
         ]
